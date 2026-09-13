@@ -10,24 +10,28 @@ const form = document.querySelector(".form");
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+    if (formInput.value.trim() === "") {
+        return;
+    }
+
     clearGallery();
     showLoader();
 
-    if (formInput.value.trim() !== "") {
-        getImagesByQuery(formInput.value.trim())
-            .then((data) => {
-                if (data.hits.length === 0) {
-                    throw new Error("Sorry, there are no images matching your search query. Please try again!");
-                }
-                createGallery(data.hits);
-            })
-            .catch((error) => {
-                iziToast.error({
-                    title: "Error",
-                    message: error.message
-                });
-            }).finally(() =>{
-                hideLoader();
-            })
-    }
+    getImagesByQuery(formInput.value.trim())
+        .then((data) => {
+            if (data.hits.length === 0) {
+                throw new Error("Sorry, there are no images matching your search query. Please try again!");
+            }
+            createGallery(data.hits);
+        })
+        .catch((error) => {
+            iziToast.error({
+                title: "Error",
+                message: error.message
+            });
+        }).finally(() => {
+            hideLoader();
+        })
+
 })
