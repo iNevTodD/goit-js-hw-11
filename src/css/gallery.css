@@ -14,8 +14,6 @@
     border: 1px solid #808080;
 }
 
-.gallery-link {}
-
 .gallery-image {
     max-height: 158px;
     object-fit: cover;
